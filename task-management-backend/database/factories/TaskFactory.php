@@ -17,7 +17,7 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
-        $statusOptions = ['todo', 'inprogress', 'completed'];
+        $statusOptions = ['TODO', 'INPROGRESS', 'COMPLETED'];
         $randomStatus = Arr::random($statusOptions);
 
         return [
