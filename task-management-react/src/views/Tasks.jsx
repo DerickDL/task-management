@@ -7,8 +7,8 @@ export default function Tasks()
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState();
   const [searchTitleParams, setSearchTitleParams] = useState('');
-  const [sortOrderParams, setSortOrderParams] = useState('');
-  const [sortByParams, setSortByParams] = useState('');
+  const [sortOrderParams, setSortOrderParams] = useState('asc');
+  const [sortByParams, setSortByParams] = useState('created_at');
 
   useEffect(() => {
     getTasks();
@@ -46,9 +46,14 @@ export default function Tasks()
   }
 
   const onSearch = (ev) => {
-    console.log()
-    getTasks(`?title=${searchTitleParams}`)
-    // getTasks();
+    getTasks(`title=${searchTitleParams}`)
+  }
+
+  const changeOrder = (ev) => {
+    console.log('change sort');
+    setSortOrderParams(sortOrderParams === 'asc' ? 'desc' : 'asc')
+    getTasks(`sortBy=${sortByParams}&&sortOrder=${sortOrderParams}`)
+
   }
 
     return (
@@ -72,9 +77,9 @@ export default function Tasks()
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Description</th>
+                    <th scope="col" >Description</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Date Created</th>
+                    <th scope="col" onClick={() => changeOrder()} style={{cursor: 'pointer'}}>Date Created</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
