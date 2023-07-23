@@ -49,6 +49,10 @@ The system should be able to do the following:
 1. npm install
 2. npm run dev
 
+### Access the app
+1. Visit http://localhost:8000 in your browser to access your Laravel app.
+2. Visit http://localhost:3000 in your browser to access your React app.
+
 
 ## Feature Test
 - Feature test is provided for the API
