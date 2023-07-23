@@ -27,6 +27,8 @@ The system should be able to do the following:
 ## Technologies Used
 - Laravel 10
 - React
+- Bootstrap 5
+- Vite
 - MariaDB
 
 ## Prerequisite
@@ -36,15 +38,19 @@ The system should be able to do the following:
 
 ## How to setup locally
 ### Backend
-- Go to task-management-backend folder and execute the following
-  - `composer install`
-  - `php artisan migrate`
-  - `php artisan serve`
+1. Rename the .env.example file to .env and set up your database connection settings in the .env file:
+2. Generate the application key: 
+    `php artisan key:generate`
+3. Execute `composer install`
+4. Run `php artisan migrate`
+5. Run `php artisan serve`
 
 ### Frontend
-- TBA
+1. npm install
+2. npm run dev
 
 
 ## Feature Test
-- Feature test is provided to the API side
+- Feature test is provided for the API
+- Update phpunit.xml to setup the database for testing purposes
 - Go to task-management-backend folder and execute `php artisan test --filter TaskCrudTest`
