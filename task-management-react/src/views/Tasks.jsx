@@ -6,20 +6,22 @@ export default function Tasks()
 {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState();
+  const [searchTitleParams, setSearchTitleParams] = useState('');
+  const [sortOrderParams, setSortOrderParams] = useState('');
+  const [sortByParams, setSortByParams] = useState('');
 
   useEffect(() => {
     getTasks();
   }, []);
 
-  const getTasks = () => {
-    setLoading(true);
-    axiosClient.get('/tasks')
+  const getTasks = (params) => { 
+    axiosClient.get(`/tasks?${params}`)
     .then((response) => {
       setTasks(response.data.data);
       setLoading(false);
     })
     .catch((error) => {
-      // console.log(error)
+      console.log(error)
       setLoading(true);
     })
   }
@@ -39,40 +41,72 @@ export default function Tasks()
       });
   }
 
+  const handleSearch = (ev) => {
+      setSearchTitleParams(ev.target.value)
+  }
+
+  const onSearch = (ev) => {
+    console.log()
+    getTasks(`?title=${searchTitleParams}`)
+    // getTasks();
+  }
+
     return (
-          <div>
-            <Link to='/task/new' className="btn-add">Add New</Link>
-            <div className="card animated fadeInDown">
-              <table>
-                <thead>
+      <div>
+        <div className="container mt-5">
+          <div className="row">
+            <div className="col align-self-start">
+            <Link to='/task/new'><button className="btn btn-primary">Add Task</button></Link>
+            </div>
+            <div className="col align-self-end text-end">
+            <div className="input-group mb-3">
+              <input type="text"  className="form-control" placeholder="Task Title" onChange={handleSearch}/>
+              <button className="btn btn-outline-secondary" onClick={onSearch}>Search</button>
+            </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <table className="table">
+                <thead className="text-center">
                   <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Date Created</th>
-                    <th>Action</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {tasks.map(task => (
-                    <tr key={task.id}>
-                      <td key={task.id}>{task.id}</td>
-                      <td key={task.title}>{task.title}</td>
-                      <td key={task.description}>{task.description}</td>
-                      <td key={task.status}>{task.status}</td>
-                      <td key={task.created_at}>{task.created_at}</td>
-                      <td>
-                        <Link className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" to={'/task/'+task.id}>Edit</Link>
-                        &nbsp;
-                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" onClick={ev => onDelete(task)}>Delete</button>
-                      </td>
-                    </tr>
-                  ))
-                  }
+                  {
+                    tasks.map(task => (
+                        <tr key={task.id}>
+                          <td>{task.id}</td>
+                          <td>{task.title}</td>
+                          <td>{task.description}</td>
+                          <td>{task.status}</td>
+                          <td>{task.created_at}</td>
+                          <td>
+                            <div className="d-flex justify-content-between">
+                              <div>
+                                <Link to={'/task/'+task.id}><button className="btn btn-info">Edit</button></Link>
+                              </div>
+                              <div className="ms-2">
+                                <button className="btn btn-danger" onClick={ev => onDelete(task)}>Delete</button>
+                              </div>
+                            
+                            
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    }
                 </tbody>
               </table>
             </div>
           </div>
-      )
+        </div>
+      </div>
+    )
 }

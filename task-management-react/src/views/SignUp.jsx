@@ -41,28 +41,46 @@ export default function SignUp()
     }
 
     return (
-        <div className="login-signup-form animated fadeInDown"> 
-            <div className="form">
-                <form onSubmit={onSubmit}>
-                    <h1 className="title">Create your account</h1>
-                    <input ref={nameRef} type="text" placeholder="Full Name" />
-                    <input ref={emailRef} type="email" placeholder="Email Address" />
-                    <input ref={passwordRef} type="password" placeholder="Password" />
-                    <input ref={confirmPasswordRef} type="password" placeholder="Confirm Password" />
-                    <button className="btn btn-block">Register</button>
-                    <p className="message">
-                        Already had an account? <Link to='/login'>Sign in.</Link>
-                    </p>
-
-                    {errors && <div className="alert">
-                      {Object.keys(errors).map(key => (
-                        <p key={key}>{errors[key][0]}</p>
-                      ))
-                      }
-                    </div>
-                    }
-                </form>
+          <div className="card align-self-center mx-auto shadow-lg p-3 mb-5 bg-body-tertiary rounded" style={{width: "30rem"}}>
+            <div className="align-self-center mx-auto text-center pb-3">
+                <h3>Sign Up</h3>
             </div>
-        </div>
+              <div className="card-body">
+                  <form onSubmit={onSubmit}>
+                      <div className="mb-2">
+                          <label className="form-label">Name</label>
+                          <input ref={nameRef} className="form-control"  />
+                      </div>
+                      
+                      <div className="mb-2">
+                          <label className="form-label">Email address</label>
+                          <input ref={emailRef} type="email" className="form-control"  />
+                      </div>
+
+                      <div className="mb-2">
+                          <label className="form-label">Password</label>
+                          <input ref={passwordRef} type="password" className="form-control"  />
+                      </div>
+
+                      <div className="mb-2">
+                          <label className="form-label">Confirm Password</label>
+                          <input ref={confirmPasswordRef} type="password" className="form-control"  />
+                      </div>
+                      
+                      <div className="d-grid gap-2 mt-4">
+                          <button className="btn btn-primary btn">Register</button>
+                      </div>
+                      <p className="message text-center">
+                        Already had an account? <Link to='/login' className="link-primary">Sign in.</Link>
+                      </p>
+                      {errors && 
+                          Object.keys(errors).map(key => (
+                              <div className="bg-danger p-2 text-white my-1" key={key}>{errors[key][0]}</div>
+                              ))
+                          
+                      }
+                  </form> 
+              </div>
+          </div>   
       )
 }

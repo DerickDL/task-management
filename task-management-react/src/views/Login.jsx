@@ -12,6 +12,7 @@ export default function Login()
     const [errors, setErrors] = useState();
 
     const onSubmit = (event) => {
+        console.log('ASDSAD');
         event.preventDefault();
         const payload = {
             email: emailRef.current.value,
@@ -45,25 +46,35 @@ export default function Login()
     }
 
     return (
-        <div className="login-signup-form animated fadeInDown"> 
-            <div className="form">
-                <form onSubmit={onSubmit}>
-                    <h1 className="title">Login to your Account</h1>
-                    <input ref={emailRef} type="email" placeholder="Email" />
-                    <input ref={passwordRef} type="password" placeholder="Password" />
-                    <button className="btn btn-block">Login</button>
-                    <p className="message">
-                        Not Registered? <Link to='/signup'>Create an account.</Link>
-                    </p>
-                    {errors && <div className="alert">
-                      {Object.keys(errors).map(key => (
-                        <p key={key}>{errors[key][0]}</p>
-                      ))
-                      }
-                    </div>
-                    }
-                </form>
+        <div className="card align-self-center mx-auto shadow-lg p-3 mb-5 bg-body-tertiary rounded" style={{width: "30rem"}}>
+            <div className="align-self-center mx-auto text-center pb-3">
+                <h3>Login</h3>
             </div>
-        </div>
+            <div className="card-body">
+                <form onSubmit={onSubmit}>
+                    <div className="mb-2">
+                        <label className="form-label">Email address</label>
+                        <input ref={emailRef} type="email" className="form-control"  />
+                    </div>
+
+                    <div className="mb-2">
+                        <label className="form-label">Password</label>
+                        <input ref={passwordRef} type="password" className="form-control"  />
+                    </div>
+                    <div className="d-grid gap-2">
+                        <button className="btn btn-primary btn">Login</button>
+                    </div>
+                    <p className="message text-center">
+                        Not Registered? <Link className="link-primary" to='/signup'>Create an account.</Link>
+                    </p>
+                    {errors && 
+                        Object.keys(errors).map(key => (
+                            <div className="bg-danger p-2 text-white my-1" key={key}>{errors[key][0]}</div>
+                            ))
+                        
+                    }
+                </form> 
+            </div>
+        </div>    
       )
 }

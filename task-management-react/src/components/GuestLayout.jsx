@@ -11,8 +11,14 @@ export default function GuestLayout()
 
     return (
         <>
-          <div>
-            <Outlet />
+          <div className="container-fluid">
+            <div className="container mt-5 pt-5">
+              <div className="row">
+                <div className="col-12 col-md-8 col-sm-8 m-auto">
+                  <Outlet />
+                </div>
+              </div>
+            </div>
           </div>
         </>
       )
